@@ -9,7 +9,7 @@ def setup():
   size(600,600)
   background('#FFFFFF')
   rectMode(CENTER)
-  
+
 
 rightArmX1 = 400
 rightArmY1 = 380
@@ -17,6 +17,7 @@ rightArmY1 = 380
 rightArmX2 = 500
 rightArmY2 = 410
 
+staffColor= (random(255), random(255), random(255))
 
 
 def drawRightArm(y2):
@@ -44,7 +45,7 @@ def drawArrow():
     
 def drawStaff():
     stroke('#000000')
-    fill('#6C420B')
+    fill(staffColor[0],staffColor[1],staffColor[2])
     rect(90, 300, 15, 300)
     
 def drawBody():
@@ -59,8 +60,23 @@ def greeting():
     fill('#000000')
     textSize(40)
     text("Hi! I'm Aang!", 200, 100)
+  
     
-def drawAang():
+    
+def randomizeColor():
+    global staffColor
+    staffColor= (random(255), random(255), random(255))
+    
+    
+def draw():
+    background("#FFFFFF")
+    global y
+    global rightArmY2
+    global rightArmYSpeed
+    
+    
+    
+    
     drawStaff()
     drawBody()
     drawHead()
@@ -71,20 +87,31 @@ def drawAang():
     greeting()
     drawRightArm(rightArmY2)
     
-def draw():
-    background("#FFFFFF")
-    global y
-    global rightArmY2
-    global rightArmYSpeed
-    
-    background('#FFFFFF')
-    
-    drawAang()
-    
-    
     if rightArmY2 > 400:
         rightArmYSpeed = -5
+        randomizeColor()
+        
     elif rightArmY2 < 300:
         rightArmYSpeed = 5
+        randomizeColor()
     
     rightArmY2 = rightArmY2 + rightArmYSpeed
+    
+    
+    
+
+  
+
+    
+    
+    
+
+
+
+   
+    
+    
+
+
+
+    
