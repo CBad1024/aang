@@ -4,25 +4,29 @@
 
 
 
-rightArmYSpeed = 1
 def setup():
   size(600,600)
   background('#FFFFFF')
   rectMode(CENTER)
-  
+  # frameRate(4)
 
-rightArmX1 = 400
-rightArmY1 = 380
+rightArmY2 = 350
+rightArmYSpeed = 1
+thresholdBreached = False
+UPPER_BOUND = 400
+LOWER_BOUND = 300
 
-rightArmX2 = 500
-rightArmY2 = 410
 
-
-
-def drawRightArm(y2):
+def drawRightArm():
+    global rightArmY2, rightArmYSpeed, thresholdBreached
     stroke('#000000')
-    line(400, 380, 500, y2)
-
+    rightArmY2 += rightArmYSpeed*5
+    line(400, 380, 500, rightArmY2)
+    thresholdBreached = False 
+    if (rightArmY2 > UPPER_BOUND or rightArmY2 < LOWER_BOUND):
+        rightArmYSpeed *= -1
+        thresholdBreached = True
+    
 def drawLeftEye():
     fill('#000000')
     ellipse(240, 220, 50, 50)
@@ -41,10 +45,18 @@ def drawArrow():
     noStroke()
     rect(300, 150, 50, 60)
     triangle(250, 180, 350, 180, 300, 220)
+  
+    
+      
+staffColor= (random(255), random(255), random(255))
     
 def drawStaff():
+    global staffColor, thresholdBreached
     stroke('#000000')
-    fill('#6C420B')
+    if thresholdBreached:
+        staffColor= (random(255), random(255), random(255))
+    
+    fill(staffColor[0],staffColor[1],staffColor[2])
     rect(90, 300, 15, 300)
     
 def drawBody():
@@ -59,8 +71,10 @@ def greeting():
     fill('#000000')
     textSize(40)
     text("Hi! I'm Aang!", 200, 100)
+
+def draw():
+    background("#FFFFFF")
     
-def drawAang():
     drawStaff()
     drawBody()
     drawHead()
@@ -69,22 +83,13 @@ def drawAang():
     drawArrow()
     drawLeftArm()
     greeting()
-    drawRightArm(rightArmY2)
+    drawRightArm()
     
-def draw():
-    background("#FFFFFF")
-    global y
-    global rightArmY2
-    global rightArmYSpeed
-    
-    background('#FFFFFF')
-    
-    drawAang()
+
+
     
     
-    if rightArmY2 > 400:
-        rightArmYSpeed = -5
-    elif rightArmY2 < 300:
-        rightArmYSpeed = 5
+
+
+
     
-    rightArmY2 = rightArmY2 + rightArmYSpeed
